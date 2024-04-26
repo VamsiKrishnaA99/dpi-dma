@@ -309,7 +309,7 @@ static void dpi_usage(const char *prgname)
 		"  -t <num>: Number of pointers per instruction (Default is 1)\n"
 		"  --mps=<size>: Max payload size of PCIe trascation \n"
 		"  --fifo_mask=<mask>: FIFO size mask of DPI DMA engines \n"
-		"  --mrrs<size>: Max PCIe read request size\n", prgname);
+		"  --mrrs=<size>: Max PCIe read request size\n", prgname);
 }
 
 /* Parse the argument given in the command line of the application */
@@ -445,8 +445,9 @@ int main(int argc, char **argv)
 	if (dpi_file < 0)
 		rte_exit(EXIT_FAILURE, "Failed to open dpi pf mode\n");
 
-	mcfg.mps = mps;
-	mcfg.mrrs = mrrs;
+	mcfg.max_payload_sz = mps;
+	mcfg.max_read_req_sz = mrrs;
+	mcfg.port = pem_id;
 	ecfg.fifo_mask = fifo_mask;
 	ecfg.update_molr = 0;
 
